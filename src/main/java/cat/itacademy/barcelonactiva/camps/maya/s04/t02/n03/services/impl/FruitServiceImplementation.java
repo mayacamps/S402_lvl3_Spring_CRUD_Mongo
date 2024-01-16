@@ -1,8 +1,8 @@
 package cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.services.impl;
 
-import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n02.domain.Fruit;
-import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n02.repository.FruitRepository;
-import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n02.services.FruitService;
+import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.domain.Fruit;
+import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.repository.FruitRepository;
+import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.services.FruitService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class FruitServiceImplementation implements FruitService {
     }
 
     @Override
-    public Fruit getFruit(int id) {
+    public Fruit getFruit(String id) {
         Optional<Fruit> fruit = fruitRepo.findById(id);
         return fruit.orElse(null);
     }
@@ -36,7 +36,7 @@ public class FruitServiceImplementation implements FruitService {
     }
 
     @Override
-    public void updateFruit(int id, Fruit fruit) {
+    public void updateFruit(String id, Fruit fruit) {
         Optional<Fruit> oldFruit = fruitRepo.findById(id);
         if (oldFruit.isPresent()){
             Fruit updatedFruit = oldFruit.get();
@@ -49,7 +49,7 @@ public class FruitServiceImplementation implements FruitService {
     }
 
     @Override
-    public void deleteFruit(int id) {
+    public void deleteFruit(String id) {
         Optional<Fruit> fruitToDelete = fruitRepo.findById(id);
         if (fruitToDelete.isPresent()) {
             fruitRepo.deleteById(id);

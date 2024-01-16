@@ -1,7 +1,7 @@
 package cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.controllers;
 
-import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n02.domain.Fruit;
-import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n02.services.impl.FruitServiceImplementation;
+import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.domain.Fruit;
+import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.services.impl.FruitServiceImplementation;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/fruit")
+@RequestMapping("/fruit/v1")
 public class FruitController {
     private final FruitServiceImplementation fruitServiceImp;
 
@@ -35,7 +35,7 @@ public class FruitController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Fruit> getOne(@PathVariable("id") int id){
+    public ResponseEntity<Fruit> getOne(@PathVariable("id") String id){
         Fruit fruit = fruitServiceImp.getFruit(id);
         if (fruit == null){
             throw new EntityNotFoundException();
@@ -44,13 +44,13 @@ public class FruitController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@PathVariable("id") int id, @Valid @RequestBody Fruit newFruit){
+    public ResponseEntity<String> update(@PathVariable("id") String id, @Valid @RequestBody Fruit newFruit){
         fruitServiceImp.updateFruit(id, newFruit);
         return ResponseEntity.status(HttpStatus.OK).body("Item successfully updated.");
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> delete(@PathVariable("id") int id){
+    public ResponseEntity<String> delete(@PathVariable("id") String id){
         fruitServiceImp.deleteFruit(id);
         return new ResponseEntity<>("Item successfully deleted.", HttpStatus.OK);
     }
