@@ -8,6 +8,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.web.util.BindErrorUtils;
 
 @ControllerAdvice
@@ -31,6 +32,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handlingNullEntry(MethodArgumentNotValidException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Input error. " + BindErrorUtils.resolveAndJoin(e.getFieldErrors()));
+    }
+
+    @ExceptionHandler({NoResourceFoundException.class})
+    public ResponseEntity<String> handlingHttpNotFound(NoResourceFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error. Check URL. " + e.getMessage());
     }
 
     @ExceptionHandler(Exception.class)

@@ -11,6 +11,10 @@ import java.io.Serializable;
 @Document(collection = "fruits")
 @NoArgsConstructor
 @Data
+/*TODO
+Not null when only changing name
+No have repeated name
+ */
 
 public class Fruit implements Serializable {
     @Id
