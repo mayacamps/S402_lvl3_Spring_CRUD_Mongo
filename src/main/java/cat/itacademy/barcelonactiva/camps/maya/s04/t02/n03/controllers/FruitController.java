@@ -2,13 +2,13 @@ package cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.controllers;
 
 import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.domain.Fruit;
 import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.services.impl.FruitServiceImplementation;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/fruit/v1")
@@ -38,7 +38,7 @@ public class FruitController {
     public ResponseEntity<Fruit> getOne(@PathVariable("id") String id){
         Fruit fruit = fruitServiceImp.getFruit(id);
         if (fruit == null){
-            throw new EntityNotFoundException();
+            throw new NoSuchElementException();
         }
         return new ResponseEntity<>(fruit,HttpStatus.OK);
     }

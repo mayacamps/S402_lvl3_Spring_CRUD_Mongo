@@ -3,11 +3,11 @@ package cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.services.impl;
 import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.domain.Fruit;
 import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.repository.FruitRepository;
 import cat.itacademy.barcelonactiva.camps.maya.s04.t02.n03.services.FruitService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -44,7 +44,7 @@ public class FruitServiceImplementation implements FruitService {
             updatedFruit.setQuantKilos(fruit.getQuantKilos());
             fruitRepo.save(updatedFruit);
         } else{
-            throw new EntityNotFoundException();
+            throw new NoSuchElementException();
         }
     }
 
@@ -54,7 +54,7 @@ public class FruitServiceImplementation implements FruitService {
         if (fruitToDelete.isPresent()) {
             fruitRepo.deleteById(id);
         } else {
-            throw new EntityNotFoundException();
+            throw new NoSuchElementException();
         }
     }
 }
